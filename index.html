@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffd9e8">
+<title>buat fin'an ♡</title>
+<style>
+:root{--pink:#ff78ad;--deep:#e64f8d;--pale:#fff1f7;--ink:#773b58}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#fff5fa,#ffd6e7 55%,#fff0f6);display:grid;place-items:center}
+#petals,.floating{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.scene{position:relative;z-index:2;width:min(92vw,570px);padding:30px 24px;text-align:center;background:#ffffffd9;border:2px solid #fff;border-radius:30px;box-shadow:0 20px 70px #d84f8d2b;backdrop-filter:blur(8px);animation:pop .7s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+h1{font-size:clamp(2rem,8vw,3rem);line-height:1.08;color:var(--deep);margin:10px 0 14px}
+p{line-height:1.7;font-size:1rem}
+.kicker{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:#c35c88;font-weight:800}
+.flower{font-size:clamp(3rem,15vw,5rem);display:inline-block;animation:bloom 1.8s ease-in-out infinite alternate}
+@keyframes bloom{from{transform:rotate(-8deg) scale(.88)}to{transform:rotate(8deg) scale(1.08)}}
+button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:13px 24px;cursor:pointer;transition:transform .18s,box-shadow .18s;touch-action:manipulation}
+button:focus-visible{outline:3px solid #9d2f62;outline-offset:3px}
+button:hover{box-shadow:0 7px 20px #db57942e}
+.yes{background:linear-gradient(135deg,#ff8cba,#ef4e93);color:#fff;box-shadow:0 8px 20px #ef4e9333}
+.no{background:#fff0f6;color:#c54b82;border:1px solid #ffd0e2}
+.buttons{position:relative;display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap;min-height:64px;margin-top:22px}
+.hidden{display:none!important}
+.note{margin:22px 0;background:#fff8fb;border:1px dashed #efa1c3;border-radius:20px;padding:18px;text-align:left}
+.signature{text-align:right;color:#dc528e;font-weight:800}
+.small{font-size:.83rem;color:#ad7891}
+#result h1{font-size:clamp(1.9rem,7vw,2.6rem)}
+.date{display:inline-block;background:#ffe1ed;border:1px solid #ffc1da;padding:12px 18px;border-radius:16px;font-weight:800;color:#c83f7e;margin:6px}
+.petal{position:absolute;top:-10vh;animation:fall linear forwards;opacity:.8}
+@keyframes fall{to{transform:translateY(120vh) rotate(720deg);opacity:.15}}
+.heart{position:absolute;bottom:-30px;animation:rise linear forwards;opacity:.8}
+@keyframes rise{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+.confetti{position:fixed;z-index:5;pointer-events:none;animation:burst 1.8s ease-out forwards;font-size:24px}
+@keyframes burst{from{transform:translateY(0) scale(.5);opacity:0}15%{opacity:1}to{transform:translateY(-180px) rotate(35deg) scale(1.4);opacity:0}}
+footer{font-size:.72rem;color:#c18ba4;margin-top:24px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="petals" aria-hidden="true"></div><div class="floating" id="floating" aria-hidden="true"></div>
+<main class="scene" id="intro">
+  <div class="flower" aria-hidden="true">🌸</div>
+  <div class="kicker">a tiny surprise for fin'an</div>
+  <h1>Haii, Fin'an! 💗</h1>
+  <p>Ada sesuatu dari Finn buat kamu...<br>siap buka kejutan kecil ini? 👉👈</p>
+  <button class="yes" id="start">Buka kejutan 🌷</button>
+  <footer>dibuat dengan sedikit keberanian & banyak rasa suka ♡</footer>
+</main>
+<main class="scene hidden" id="letter">
+  <div class="flower">💐</div><div class="kicker">a little note from finn</div>
+  <h1>Untuk Fin'an ♡</h1>
+  <div class="note">
+    <p>Haii Fin'an,</p>
+    <p>Aku seneng bisa kenal kamu. Entah sejak kapan, kamu jadi salah satu alasan kecil yang bikin hariku terasa lebih menyenangkan.</p>
+    <p>Hari ini aku mau jujur aja: aku suka sama kamu. Aku nggak tahu kata-kata paling sempurna buat bilang ini, jadi aku pilih cara sederhana ini buat menyampaikannya. 🥹💗</p>
+    <p class="signature">— Finn</p>
+  </div>
+  <p>Jadi... boleh aku tanya sesuatu? 🌷</p>
+  <button class="yes" id="toQuestion">Lihat pertanyaannya 💌</button>
+</main>
+<main class="scene hidden" id="question">
+  <div class="flower">🌷💗🌷</div>
+  <div class="kicker">one important question</div>
+  <h1>Mau ga jadi org spesial aku?</h1>
+  <p>Fin'an, aku nanya serius nih... tapi tetap santai yaa 🥺</p>
+  <div class="buttons" id="buttonArea">
+    <button class="yes" id="yes">MAUUU 💖</button>
+    <button class="no" id="no">GAMAU 🙈</button>
+  </div>
+  <p class="small" id="tease">pilih dengan hati-hati hehe 🤭</p>
+</main>
+<main class="scene hidden" id="result">
+  <div class="flower">💐🥹💗</div>
+  <div class="kicker">the start of something sweet</div>
+  <h1>YEAYYY, FIN'AN MAUUU!! 💞</h1>
+  <p>Mulai hari ini, Finn resmi jadi orang yang paling seneng karena kamu. Kita jalanin pelan-pelan, ya? 🌸</p>
+  <p>♡ Tanggal jadian kita ♡</p>
+  <div class="date" id="dateText">—</div>
+  <p class="small">backsound bisa diputar kalau file musik tersedia di folder website 🎶</p>
+  <button class="no" id="musicToggle">Putar / jeda musik 🎵</button>
+  <audio id="song" loop preload="none">
+    <source src="pandangan-pertama.mp3" type="audio/mpeg">
+  </audio>
+  <footer>with love, Finn ♡</footer>
+</main>
+<script>
+const pages=["intro","letter","question","result"];
+function show(id){pages.forEach(p=>document.getElementById(p).classList.toggle("hidden",p!==id));}
+function rain(containerId, symbols, count, cls, durationMin, durationRange){
+  const box=document.getElementById(containerId);
+  for(let i=0;i<count;i++){
+    const el=document.createElement("span");el.className=cls;
+    el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    el.style.left=Math.random()*100+"%";
+    el.style.fontSize=(14+Math.random()*22)+"px";
+    el.style.animationDuration=(durationMin+Math.random()*durationRange)+"s";
+    el.style.animationDelay=(-Math.random()*15)+"s";
+    box.appendChild(el);
+  }
+}
+rain("petals",["🌸","🌷","🌼","✿","❀"],24,"petal",7,10);
+rain("floating",["♡","♥","💗","💕","✨"],20,"heart",8,12);
+document.getElementById("start").addEventListener("click",()=>show("letter"));
+document.getElementById("toQuestion").addEventListener("click",()=>show("question"));
+const no=document.getElementById("no"), area=document.getElementById("buttonArea");
+let dodges=0;
+function moveNo(){
+  dodges++;
+  // Keep the playful button inside the visible area; on touch devices it relocates rather than becoming unreachable.
+  const maxX=Math.max(8,Math.min(180,window.innerWidth/2-95));
+  const maxY=48;
+  no.style.position="relative";
+  no.style.left=(Math.random()*2-1)*maxX+"px";
+  no.style.top=(Math.random()*2-1)*maxY+"px";
+  document.getElementById("tease").textContent=["Eits, kok gamau? 🤭","Hehehe tombolnya kabur! 💨","Coba lagi kalau berani 😝","Kayaknya tombol MAU manggil kamu nih 💗"][Math.min(dodges-1,3)];
+}
+no.addEventListener("pointerenter",moveNo);
+no.addEventListener("click",moveNo);
+no.addEventListener("touchstart",e=>{e.preventDefault();moveNo();},{passive:false});
+function celebrate(){
+  const syms=["💖","💕","🌸","✨","💗","🌷"];
+  for(let i=0;i<38;i++){
+    const el=document.createElement("span");el.className="confetti";
+    el.textContent=syms[Math.floor(Math.random()*syms.length)];
+    el.style.left=(4+Math.random()*92)+"vw";el.style.top=(35+Math.random()*50)+"vh";
+    el.style.animationDelay=Math.random()*.45+"s";document.body.appendChild(el);
+    setTimeout(()=>el.remove(),2400);
+  }
+}
+document.getElementById("yes").addEventListener("click",()=>{
+  show("result");
+  const now=new Date();
+  const fmt=new Intl.DateTimeFormat("id-ID",{day:"numeric",month:"long",year:"numeric"});
+  document.getElementById("dateText").textContent=fmt.format(now);
+  celebrate();
+  // Browsers block autoplay until a user gesture; the button below lets them start the music.
+});
+const song=document.getElementById("song");
+document.getElementById("musicToggle").addEventListener("click",async()=>{
+  try{if(song.paused){await song.play();document.getElementById("musicToggle").textContent="Jeda musik ⏸️";}
+  else{song.pause();document.getElementById("musicToggle").textContent="Putar musik 🎵";}}
+  catch(e){alert("Tambahkan file musik bernama pandangan-pertama.mp3 ke folder yang sama dengan index.html. Pastikan kamu punya izin untuk menggunakan file audio tersebut.");}
+});
+</script>
+</body>
+</html>
